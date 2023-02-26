@@ -2,17 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Leaf : MonoBehaviour
+public class Leaf : Node
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public delegate Status Tick();
+    public Tick ProcessMethod;
+
+    //Constructors
+    public Leaf() {}
+
+    public Leaf(string n, Tick pm){
+        name = n;
+        ProcessMethod = pm;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    //Methods
+    public override Status Process(){
+        if(ProcessMethod != null)
+            return ProcessMethod();
+        return Status.FAILURE;
     }
+
 }

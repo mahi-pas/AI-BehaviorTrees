@@ -21,8 +21,9 @@ public class Node
         children.Add(n);
     }
 
+    //Run process
     public virtual Status Process(){
-        return Status.SUCCESS;
+        return children[currentChild].Process();
     }
 
 }

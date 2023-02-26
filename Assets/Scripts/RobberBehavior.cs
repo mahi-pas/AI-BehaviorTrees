@@ -17,8 +17,8 @@ public class RobberBehavior : MonoBehaviour
 
         tree = new BehaviorTree();
         Node steal = new Node("Steal object");
-        Node goToDiamond =  new Node("Go To Diamond");
-        Node goToVan = new Node("Go To Van");
+        Leaf goToDiamond =  new Leaf("Go To Diamond", GoToDiamond);
+        Leaf goToVan = new Leaf("Go To Van", GoToVan);
 
         steal.AddChild(goToDiamond);
         steal.AddChild(goToVan);
@@ -26,12 +26,22 @@ public class RobberBehavior : MonoBehaviour
 
         tree.PrintTree();
 
-        agent.SetDestination(diamond.position);
+        tree.Process();
     }
-
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    //Methods
+    public Node.Status GoToDiamond(){
+        agent.SetDestination(diamond.position);
+        return Node.Status.SUCCESS;
+    }
+
+    public Node.Status GoToVan(){
+        agent.SetDestination(van.position);
+        return Node.Status.SUCCESS;
     }
 }
